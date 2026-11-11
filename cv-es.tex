@@ -15,6 +15,7 @@
 \usepackage{xcolor}
 \usepackage{titlesec}
 \usepackage{enumitem}
+\usepackage{needspace}
 \usepackage[hidelinks]{hyperref}
 
 %----------------------------- Paleta
@@ -38,7 +39,7 @@
   {}
   [\vspace{2pt}{\color{rule}\titlerule[0.5pt]}]
 \titlespacing*{\section}{0pt}{9pt}{5pt}
-\newcommand{\cvsection}[1]{\section{\MakeUppercase{#1}}}
+\newcommand{\cvsection}[1]{\needspace{5\baselineskip}\section{\MakeUppercase{#1}}}
 
 %----------------------------- Listas
 \setlist[itemize]{
@@ -88,7 +89,7 @@
 Ingeniero de Sistemas con más de 8 años de experiencia y foco en ingeniería de IA aplicada: integro modelos de lenguaje en
 productos en producción (asistentes conversacionales multi-LLM, transcripción y traducción de voz, extracción de documentos) y
 diseño flujos agénticos en los que agentes de IA implementan bajo especificaciones, pruebas automatizadas y mi revisión.
-Sobre esa base construyo y opero plataformas SaaS multi-tenant, microservicios e integraciones críticas en salud, logística
+Sobre esa base construyo y opero plataformas SaaS multi-tenant, microservicios e integraciones críticas en fintech, salud, logística
 portuaria y recursos humanos para clientes de Ecuador, Estados Unidos y Alemania, con Laravel/PHP como núcleo y trabajo
 complementario en Node.js, Java, .NET y Rust. Como líder técnico asumo arquitectura, seguridad, calidad y operación.
 \par}
@@ -97,12 +98,46 @@ complementario en Node.js, Java, .NET y Rust. Como líder técnico asumo arquite
 \cvsection{Experiencia profesional}
 
 \cventry{EFY}{Remoto}{AI Engineer}{Febrero 2026 -- Actualidad}
+{\small Fintech B2B y B2C para Latinoamérica: wallets cripto custodiadas, cuentas bancarias en USD, tarjetas prepago, compra y
+venta de cripto, transferencias entre usuarios y un back office para Cumplimiento y Tesorería.\par}
+
+\cvproject{Ingeniería agéntica}{Desarrollo de la plataforma con agentes de IA bajo mi dirección}{}
 \begin{itemize}
-  \item Backend de una fintech B2B y B2C para Latinoamérica en Laravel 12 y Node.js/Fastify sobre AWS (ECS, Lambda, Aurora
-        PostgreSQL, Cognito), integrado con banca en USD (ACH y SWIFT), tarjetas prepago, custodia cripto MPC y wallet en COP.
-  \item Desarrollo agéntico con Claude Code: agentes en paralelo (Orca, MCP) resuelven tickets en varios repositorios con revisión
-        automática y e2e en vivo; con ajustes semanales por telemetría, los PRs aprobados a la primera pasaron del 85 al 92--98\,\%.
-  \item Cerré accesos indebidos entre empresas (IDOR) con permisos HMAC y monté pruebas e2e en vivo contra los 4 proveedores.
+  \item Más de 1.400 PRs mergeados en 19 repositorios en nueve meses (backend, frontend, contratos, infraestructura y
+        conocimiento de producto), implementados en su mayoría por agentes de Claude Code que orquesto: asigno cada tarea a un
+        modelo según su complejidad, corro agentes en paralelo sobre worktrees aislados (Orca) y les doy acceso a Jira, Slack,
+        AWS, bases de datos y navegador mediante servidores MCP.
+  \item Cada cambio pasa por revisión automática y pruebas antes del merge, y por una verificación e2e en vivo tras desplegarse
+        en desarrollo. Ajusto el proceso cada semana con la telemetría de los agentes: PRs aprobados en la primera revisión
+        del 85 al 92--98\,\% y e2e en verde al primer intento del 73 al 87--90\,\%.
+  \item Más de 150 PRs al plugin de skills del equipo (playbooks de resolución de tickets, recorridos e2e en vivo y guards de
+        «diseño primero» y de plantillas PDF) y aportes a la base de conocimiento de producto que los agentes consultan antes
+        de crear o resolver una tarea.
+\end{itemize}
+
+\cvproject{Backend y pagos}{Laravel 12, Node.js/Fastify y TypeScript sobre AWS}{}
+\begin{itemize}
+  \item Servicios de transacciones (Laravel 12, PHP 8.4), usuarios e identidad, BFF, comprobantes, extractos y notificaciones
+        sobre AWS (ECS Fargate, Lambda, Aurora PostgreSQL, Cognito, S3, SES), con sagas, outbox, idempotencia y un ledger de
+        partida doble.
+  \item Integraciones con banca en USD (apertura de cuentas con KYC y KYB, pagos ACH y SWIFT con compensación contable en dos
+        pasos), un procesador de tarjetas prepago (emisión, recargas desde cripto, disputas y extractos), custodia cripto MPC
+        y una wallet en pesos colombianos. Suite e2e en vivo contra los cuatro sandboxes que valida la API, el proveedor y el
+        ledger; la auditoría del conector de tarjetas dejó 12 hallazgos: 10 corregidos y 2 refutados con evidencia.
+  \item Seguridad y cumplimiento: cerré accesos indebidos entre empresas (IDOR) con permisos HMAC-SHA256 de 60 segundos
+        firmados por el BFF, llevé FATCA a un envío estructurado e inmutable e implementé en cinco repositorios la máquina de
+        estados del alta de empresas. Bajé la suite de 1.648 pruebas de 192 s a 38 s (6 s en paralelo).
+\end{itemize}
+
+\cvproject{Frontend y diseño}{Next.js 16, Expo/React Native y Claude Design}{}
+\begin{itemize}
+  \item Casi 300 PRs en el monorepo de front (pnpm y Turborepo): apps web B2C y B2B en Next.js 16 y app móvil en Expo,
+        conectadas al BFF por un contrato OpenAPI con mocks (MSW) y control de compatibilidad (oasdiff).
+  \item Flujo de diseño a código: las pantallas se diseñan en Claude Design y llegan al repositorio como drops versionados que
+        se portan a Next.js y React Native con un sello de integridad por pantalla. Implementé el gate de CI «diseño primero»,
+        que bloquea toda pantalla B2C que no salga de ese flujo, y gestiono los cambios de diseño como change requests versionados.
+  \item Comprobantes y extractos en PDF (react-pdf) fieles a las plantillas de Claude Design, y módulos del back office para
+        Cumplimiento y Tesorería: colas de fondeo, rechazo masivo de documentos KYC/KYB, disputas e invalidación de FATCA.
 \end{itemize}
 
 \cventry{TeamQ Developers}{Quito, Ecuador \textperiodcentered{} Remoto}{Senior Fullstack Developer \textperiodcentered{} Líder Técnico}{Enero 2023 -- Actualidad}
@@ -216,13 +251,13 @@ complementario en Node.js, Java, .NET y Rust. Como líder técnico asumo arquite
 %============================= HABILIDADES
 \cvsection{Habilidades técnicas}
 \vspace{2pt}
-\cvskill{Ingeniería de IA}{Integración de LLM (OpenAI, Anthropic, Gemini), flujos agénticos y skills (Claude Code, Cursor), Whisper, OCR.}
-\cvskill{Backend}{PHP 8.4, Laravel (experto), Octane/FrankenPHP, Node.js (NestJS), C\#/.NET, Java (Apache Camel), Rust.}
+\cvskill{Ingeniería de IA}{Integración de LLM (OpenAI, Anthropic, Gemini), agentes y skills (Claude Code, Orca, MCP), Whisper, OCR.}
+\cvskill{Backend}{PHP 8.4, Laravel (experto), Octane/FrankenPHP, Node.js (NestJS, Fastify), C\#/.NET, Java (Apache Camel), Rust.}
 \cvskill{Arquitectura}{SaaS multi-tenant, microservicios, sistemas orientados a eventos, DDD, integraciones REST/SOAP/SFTP/HL7.}
 \cvskill{Datos y mensajería}{PostgreSQL (RLS), MySQL, SQL Server (T-SQL), MongoDB, Redis, Typesense, RabbitMQ, AWS SQS.}
 \cvskill{Seguridad e identidad}{OAuth 2.0, OIDC, Keycloak, SSO, mTLS, 2FA, cifrado por campo, gestión de secretos.}
 \cvskill{Infraestructura y calidad}{Docker, AWS, Azure, GitHub Actions, despliegue blue-green, TDD (Pest, PHPUnit), PHPStan/Larastan.}
-\cvskill{Frontend}{React (Inertia, Next.js), Livewire, Filament, Alpine.js, Angular, Vue.js.}
+\cvskill{Frontend}{React (Inertia, Next.js), React Native (Expo), Livewire, Filament, Alpine.js, Angular, Vue.js.}
 \cvskill{Idiomas}{Español (nativo), inglés (A2, en formación activa).}
 
 \end{document}
