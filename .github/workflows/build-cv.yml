@@ -1,0 +1,94 @@
+name: Build CV
+
+# Compiles every cv-*.tex at the repository root.
+# Pull requests to main: build only, PDFs available as a workflow artifact.
+# Push to main (a merged PR) or a manual run on main: build and publish a GitHub Release.
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "**.tex"
+      - ".github/workflows/build-cv.yml"
+  push:
+    branches: [main]
+    paths:
+      - "**.tex"
+      - ".github/workflows/build-cv.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-cv-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install TeX Live
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            latexmk \
+            lmodern \
+            tex-gyre \
+            texlive-fonts-recommended \
+            texlive-lang-spanish \
+            texlive-latex-base \
+            texlive-latex-extra \
+            texlive-latex-recommended
+
+      - name: Compile PDFs
+        run: |
+          shopt -s nullglob
+          files=(cv-*.tex)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "::error::No cv-*.tex files found at the repository root"
+            exit 1
+          fi
+          for f in "${files[@]}"; do
+            echo "::group::$f"
+            latexmk -pdf -interaction=nonstopmode -halt-on-error -output-directory=build "$f"
+            echo "::endgroup::"
+          done
+          ls -l build/*.pdf
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: cv-pdf
+          path: build/*.pdf
+          if-no-files-found: error
+
+  release:
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: cv-pdf
+          path: pdf
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          date=$(date -u +%Y-%m-%d)
+          tag="cv-${date}-${GITHUB_SHA::7}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" pdf/*.pdf --clobber
+          else
+            gh release create "$tag" pdf/*.pdf \
+              --target "$GITHUB_SHA" \
+              --title "CV ${date}" \
+              --notes "Built from ${GITHUB_SHA::7}." \
+              --latest
+          fi

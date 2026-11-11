@@ -1,0 +1,232 @@
+%-------------------------------------------------------------
+% CV — Luis Arce C.
+% Compilar con: pdflatex cv-es.tex
+%-------------------------------------------------------------
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-noshorthands,es-nolists,es-noquoting]{babel}
+\usepackage{tgheros}
+\renewcommand{\ttdefault}{lmtt}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[letterpaper,top=1.3cm,bottom=1.2cm,left=1.75cm,right=1.75cm]{geometry}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+%----------------------------- Paleta
+\definecolor{ink}{HTML}{1F2328}
+\definecolor{accent}{HTML}{1F3A5F}
+\definecolor{muted}{HTML}{667085}
+\definecolor{rule}{HTML}{D0D5DD}
+\definecolor{todo}{HTML}{B42318}
+
+\hypersetup{pdftitle={Luis Arce C. — CV},pdfauthor={Luis Arce C.}}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\color{ink}
+\linespread{1.03}
+
+%----------------------------- Secciones
+\titleformat{\section}
+  {\color{accent}\footnotesize\bfseries}
+  {}{0pt}
+  {}
+  [\vspace{2pt}{\color{rule}\titlerule[0.5pt]}]
+\titlespacing*{\section}{0pt}{9pt}{5pt}
+\newcommand{\cvsection}[1]{\section{\MakeUppercase{#1}}}
+
+%----------------------------- Listas
+\setlist[itemize]{
+  leftmargin=1.05em, labelsep=0.5em, topsep=2.5pt, itemsep=1.2pt, parsep=0pt, partopsep=0pt,
+  label={\color{muted}\raisebox{0.25ex}{\tiny$\bullet$}},
+  before=\small, beginpenalty=10000
+}
+
+%----------------------------- Bloques
+% \cventry{Empresa}{Ubicación}{Cargo}{Periodo}
+\newcommand{\cventry}[4]{%
+  \vspace{6pt}%
+  {\bfseries #1}\hfill{\small\color{muted}#4}\par
+  \vspace{1pt}%
+  {\small #3}\hfill{\small\color{muted}#2}\par
+  \vspace{1pt}%
+}
+% \cvproject{Proyecto}{Descriptor}{Periodo}
+\newcommand{\cvproject}[3]{%
+  \vspace{5pt}%
+  {\small{\color{accent}\bfseries #1}\quad{\color{muted}#2}\hfill{\color{muted}#3}}\par\nobreak
+}
+% \cvskill{Categoría}{Contenido}
+\newcommand{\cvskill}[2]{%
+  {\small\textbf{#1}\quad #2}\par\vspace{2.5pt}%
+}
+\newcommand{\sep}{\hspace{0.55em}{\color{rule}|}\hspace{0.55em}}
+\newcommand{\pendiente}[1]{{\color{todo}[#1]}}
+
+\begin{document}
+
+%============================= ENCABEZADO
+{\fontsize{22}{26}\selectfont\bfseries Luis Arce C.}\par
+\vspace{5pt}
+{\color{accent}Ingeniero de Software Senior \textperiodcentered{} AI Engineer \textperiodcentered{} Arquitectura Backend}\par
+\vspace{5pt}
+{\small\color{muted}%
+  Milagro, Ecuador\sep
+  \href{mailto:luilliarcec@gmail.com}{luilliarcec@gmail.com}\sep
+  +593 979 221 239\sep
+  \href{https://www.linkedin.com/in/luilliarcec}{linkedin.com/in/luilliarcec}\sep
+  \href{https://github.com/luilliarcec}{github.com/luilliarcec}}\par
+
+%============================= PERFIL
+\cvsection{Perfil}
+{\small
+Ingeniero de Sistemas con más de 8 años de experiencia y foco en ingeniería de IA aplicada: integro modelos de lenguaje en
+productos en producción (asistentes conversacionales multi-LLM, transcripción y traducción de voz, extracción de documentos) y
+diseño flujos agénticos en los que agentes de IA implementan bajo especificaciones, pruebas automatizadas y mi revisión.
+Sobre esa base construyo y opero plataformas SaaS multi-tenant, microservicios e integraciones críticas en salud, logística
+portuaria y recursos humanos para clientes de Ecuador, Estados Unidos y Alemania, con Laravel/PHP como núcleo y trabajo
+complementario en Node.js, Java, .NET y Rust. Como líder técnico asumo arquitectura, seguridad, calidad y operación.
+\par}
+
+%============================= EXPERIENCIA
+\cvsection{Experiencia profesional}
+
+%------------------------------------------------------------------
+% >>> EFY — BLOQUE PENDIENTE DE REDACTAR
+% Sustituir los \pendiente{...} por el contenido real (cargo, ubicación
+% y de 3 a 5 logros). Mantener el mismo formato que el resto de entradas.
+%------------------------------------------------------------------
+\cventry{EFY}{\pendiente{Ubicación / modalidad}}{\pendiente{Cargo}}{Febrero 2026 -- Actualidad}
+\begin{itemize}
+  \item \pendiente{Logro 1: qué se construyó o lideró, con qué tecnología y qué resultado medible tuvo.}
+  \item \pendiente{Logro 2.}
+  \item \pendiente{Logro 3.}
+\end{itemize}
+% <<< EFY
+
+\cventry{TeamQ Developers}{Quito, Ecuador \textperiodcentered{} Remoto}{Senior Fullstack Developer \textperiodcentered{} Líder Técnico}{Enero 2023 -- Actualidad}
+
+\cvproject{RUDY}{SaaS B2B de certificados laborales para el mercado alemán \textperiodcentered{} Líder técnico}{2023 -- Actualidad}
+\begin{itemize}
+  \item Lideré la reescritura completa de la plataforma: tres aplicaciones heredadas (CakePHP, Laravel y Angular sobre MySQL)
+        unificadas en una API Laravel 13 con Octane/FrankenPHP sobre PostgreSQL 17 y un front Next.js 16. Salió a producción
+        unas 12 semanas después del primer commit, con la migración de 48 empresas y una ventana de corte de 22 minutos.
+  \item Diseñé el aislamiento entre empresas con Row-Level Security de PostgreSQL, cifrado AES-256 por campo con una clave por
+        empresa y rotación sin interrupción, SSO OIDC por cliente (secreto o mTLS) y doble factor de autenticación.
+  \item Entrega continua con despliegue blue-green: más de 110 versiones en producción en dos meses, despliegues de menos de
+        un minuto y rollback en 13 segundos. El API se sostiene con 4.801 pruebas automatizadas (97,3\,\% de cobertura),
+        análisis estático en nivel 8 y especificaciones versionadas junto al código (más de 500 requisitos).
+  \item Operación y seguridad: respaldos cifrados con copia externa inmutable, reconstrucción completa ensayada (RPO y RTO
+        de 4 horas), runbooks de despliegue y SDLC alineado con OWASP SAMM. Resueltos los 10 hallazgos de severidad alta de
+        una evaluación de seguridad externa.
+\end{itemize}
+
+\cvproject{HealthHero}{Vacunación escolar en EE.\,UU. \textperiodcentered{} Arquitecto y desarrollador principal del backend}{2023 -- Actualidad}
+\begin{itemize}
+  \item \textbf{ERIS}: plataforma multi-tenant para socios regionales (Laravel, MySQL en AWS RDS, SQS, S3). Autor principal del
+        backend: pacientes, consentimientos, inventario de vacunas con trazabilidad por eventos, y facturación y reclamaciones
+        a aseguradoras con ClaimMD (lotes, conciliación de remesas y rechazos).
+  \item Integración HL7 (mensajes VXU) con los registros de inmunización (IIS) de 10 estados: una Abstract Factory resuelve la
+        implementación de cada estado y su transporte (REST, SOAP o SFTP), con acuses asíncronos mediante colas diferidas.
+  \item Digitalización masiva de consentimientos en papel con Azure Document Intelligence (modelos a medida y detección de la
+        versión del formulario por código QR) y búsqueda histórica de pacientes sobre MongoDB y Typesense, con puntuación
+        ponderada por atributo y distancia de Levenshtein.
+  \item \textbf{Kronos} (Laravel 12, PHP 8.4): planificación de clínicas por temporada, coordinación de equipos de enfermería,
+        nómina y optimización de rutas con Google Route Optimization. Diseñé su integración con ERIS, que actúa como autoridad
+        OAuth 2.0 del ecosistema. Ambos backends suman más de 2.800 pruebas automatizadas.
+\end{itemize}
+
+\cvproject{TeamQ SBS}{Suite SaaS de microservicios para pymes \textperiodcentered{} Arquitecto y líder técnico de Omnichat}{2023 -- Actualidad}
+\begin{itemize}
+  \item Creé el servicio central de organizaciones (multi-tenant) y lo rediseñé sobre Laravel 12 y Keycloak. Autor de los
+        paquetes compartidos de tenencia y de autenticación (usuarios y máquina a máquina) y de la plantilla base de la que
+        derivan cuatro microservicios; sincronización de identidades Keycloak $\rightarrow$ RabbitMQ $\rightarrow$ servicios.
+  \item \textbf{Omnichat}: bandeja omnicanal sobre WhatsApp Cloud, Messenger, Instagram y Telegram (Laravel 13, Octane, MongoDB,
+        RabbitMQ), de la que soy desarrollador principal. Diseñé el motor de flujos conversacionales como máquina de estados
+        (expiración por inactividad, invalidación al republicar, tope de nodos por turno contra ciclos), un renderizador
+        independiente del canal y el traspaso a agentes humanos.
+  \item IA multi-proveedor por organización (OpenAI, Anthropic, Gemini): cada cliente usa sus propias credenciales, aisladas
+        entre peticiones en los workers de larga vida de Octane.
+\end{itemize}
+
+\cvproject{Terminal Portuario de Guayaquil (TPG)}{Sistemas corporativos e integración con Navis N4}{2023 -- 2026}
+\begin{itemize}
+  \item Backends Laravel con SSO Keycloak para crédito, certificados de carga y contenedores, control de acceso, calificación
+        de proveedores y centro de ayuda; principal contribuidor en cuatro de ellos y autor del starter kit común.
+  \item Integración con Navis N4, el sistema operativo de la terminal: primero un gateway en NestJS/Fastify (plantillas SOAP en
+        MongoDB, caché en Redis) y después un middleware en Apache Camel 4 (YAML DSL, Java 21, Groovy) desplegado en
+        Kubernetes con GitOps. Aporté el endpoint SOAP unificado, orquestaciones en paralelo y un worker asíncrono sobre
+        Redis Sentinel.
+\end{itemize}
+
+\cvproject{TaxiApp}{API de transporte con despacho en tiempo real}{2024 -- 2026}
+\begin{itemize}
+  \item Construí la base del backend: seguimiento GPS en tiempo real (MongoDB y WebSockets con Laravel Reverb), push con FCM,
+        chat, seis idiomas y zona horaria por usuario; después, el despacho automático con colas FIFO de conductores por geocerca.
+\end{itemize}
+
+\cvproject{Otros proyectos y aportes internos}{}{}
+\begin{itemize}
+  \item Carga masiva de datos en .NET 10 para una aseguradora de salud, gestión de programas para una universidad y campañas
+        push para una cadena hotelera. Autor de \texttt{teamq-laravel-datatables}, paquete de código abierto con más de 10.000
+        descargas en Packagist, y del starter kit Laravel de la empresa.
+  \item Autor del estándar de trabajo con IA del equipo: skills de Claude Code que cubren la creación de tickets, el flujo de
+        ramas y PR, y la resolución de una tarea de punta a punta (ticket, pruebas, PR, CI y despliegue).
+\end{itemize}
+
+\cventry{Codesofsas}{Guayaquil, Ecuador}{Senior Fullstack Developer}{Agosto 2020 -- Febrero 2023}
+\begin{itemize}
+  \item \textbf{Texcumar} (arquitecto de software): lideré el diseño y desarrollo de la aplicación de control de producción de
+        nauplios de camarón (Laravel, Livewire, AlpineJS), con inventarios y reportes por etapa cubiertos por pruebas automatizadas.
+  \item \textbf{Barcelona Sporting Club}: e-commerce y API para la aplicación móvil oficial del club.
+  \item \textbf{ERP Durán}: desarrollo de un ERP multi-tenant con Laravel y Vue.js.
+\end{itemize}
+
+\cventry{Freelance}{Milagro, Ecuador}{Desarrollador Fullstack}{Octubre 2018 -- Actualidad}
+\begin{itemize}
+  \item Aplicaciones web (Laravel, Node.js) y de escritorio (C\#), y bases de datos SQL Server con lógica de negocio crítica en T-SQL.
+\end{itemize}
+
+%============================= PROYECTOS PERSONALES
+\cvsection{Proyectos independientes}
+
+\cvproject{Ferretería Calderón}{ERP para una pyme ferretera en Ecuador \textperiodcentered{} Arquitecto e ingeniero a cargo}{2026}
+\begin{itemize}
+  \item Punto de venta, inventario con kardex, contabilidad de partida doble y facturación electrónica ante el SRI (firma XAdES
+        y envío SOAP de facturas, notas, retenciones y guías). Laravel 13, React 19 con Inertia, Octane/FrankenPHP y
+        PostgreSQL 18; acceso con 2FA y passkeys.
+  \item Construido con agentes de IA bajo mi dirección: especificaciones versionadas, pruebas y análisis estático como puerta de
+        cada cambio (unos 100 merge requests en menos de cuatro meses) y migración del sistema anterior conciliada al centavo.
+\end{itemize}
+
+\cvproject{AI TVoice}{Traductor de voz en tiempo real para videollamadas \textperiodcentered{} Creador}{2025}
+\begin{itemize}
+  \item Aplicación de escritorio en Rust (Tokio, Tauri 2) que captura a la vez el audio del sistema y el micrófono, transcribe con
+        Whisper y traduce con un LLM. Diseñé la cadena de audio completa: detección de voz por energía, segmentación,
+        remuestreo a 16 kHz, resultados parciales en vivo y salida de voz hacia un micrófono virtual.
+\end{itemize}
+
+%============================= EDUCACIÓN
+\cvsection{Educación}
+
+\cventry{Universidad Estatal de Milagro}{Milagro, Ecuador}{Maestría en Ingeniería de Software \textperiodcentered{} Sistemas inteligentes e intensivos en datos}{Octubre 2025 -- Actualidad}
+\cventry{Universidad Estatal de Milagro}{Milagro, Ecuador}{Ingeniería en Sistemas}{Febrero 2020}
+
+%============================= HABILIDADES
+\cvsection{Habilidades técnicas}
+\vspace{2pt}
+\cvskill{Ingeniería de IA}{Integración de LLM (OpenAI, Anthropic, Gemini), flujos agénticos y skills (Claude Code, Cursor), Whisper, OCR.}
+\cvskill{Backend}{PHP 8.4, Laravel (experto), Octane/FrankenPHP, Node.js (NestJS), C\#/.NET, Java (Apache Camel), Rust.}
+\cvskill{Arquitectura}{SaaS multi-tenant, microservicios, sistemas orientados a eventos, DDD, integraciones REST/SOAP/SFTP/HL7.}
+\cvskill{Datos y mensajería}{PostgreSQL (RLS), MySQL, SQL Server (T-SQL), MongoDB, Redis, Typesense, RabbitMQ, AWS SQS.}
+\cvskill{Seguridad e identidad}{OAuth 2.0, OIDC, Keycloak, SSO, mTLS, 2FA, cifrado por campo, gestión de secretos.}
+\cvskill{Infraestructura y calidad}{Docker, AWS, Azure, GitHub Actions, despliegue blue-green, TDD (Pest, PHPUnit), PHPStan/Larastan.}
+\cvskill{Frontend}{React (Inertia, Next.js), Livewire, Filament, Alpine.js, Angular, Vue.js.}
+\cvskill{Idiomas}{Español (nativo), inglés (A2, en formación activa).}
+
+\end{document}

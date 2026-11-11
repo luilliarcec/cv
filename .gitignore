@@ -1,0 +1,12 @@
+# Only the LaTeX sources are versioned; PDFs are built by CI.
+*.pdf
+build/
+
+# LaTeX build files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
