@@ -5,7 +5,7 @@ LaTeX source of my CV. Only the `.tex` files live here; GitHub Actions compiles 
 | File | Language | Status |
 |---|---|---|
 | `cv-es.tex` | Spanish | Active |
-| `cv-en.tex` | English | Planned |
+| `cv-en.tex` | English | Active |
 
 ## Workflow
 
