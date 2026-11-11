@@ -86,12 +86,12 @@
 %============================= PERFIL
 \cvsection{Perfil}
 {\small
-Ingeniero de Sistemas con más de 8 años de experiencia y foco en ingeniería de IA aplicada: integro modelos de lenguaje en
-productos en producción (asistentes conversacionales multi-LLM, transcripción y traducción de voz, extracción de documentos) y
-diseño flujos agénticos en los que agentes de IA implementan bajo especificaciones, pruebas automatizadas y mi revisión.
-Sobre esa base construyo y opero plataformas SaaS multi-tenant, microservicios e integraciones críticas en fintech, salud, logística
-portuaria y recursos humanos para clientes de Ecuador, Estados Unidos y Alemania, con Laravel/PHP como núcleo y trabajo
-complementario en Node.js, Java, .NET y Rust. Como líder técnico asumo arquitectura, seguridad, calidad y operación.
+Ingeniero de Sistemas con más de 8 años de experiencia y foco en ingeniería de IA aplicada: llevo modelos de lenguaje a
+producción (asistentes multi-LLM, transcripción y traducción de voz, extracción de documentos) y diseño flujos agénticos donde
+agentes de IA implementan bajo especificaciones, pruebas y mi revisión. Construyo y opero plataformas SaaS multi-tenant,
+microservicios e integraciones críticas en fintech, salud, logística portuaria y RR.\,HH. para clientes de Ecuador, EE.\,UU. y
+Alemania, con Laravel/PHP como núcleo y también Node.js, Java, .NET y Rust. Como líder técnico asumo arquitectura, seguridad,
+calidad y operación.
 \par}
 
 %============================= EXPERIENCIA
@@ -103,16 +103,13 @@ venta de cripto, transferencias entre usuarios y un back office para Cumplimient
 
 \cvproject{Ingeniería agéntica}{Desarrollo de la plataforma con agentes de IA bajo mi dirección}{}
 \begin{itemize}
-  \item Más de 1.400 PRs mergeados en 19 repositorios en nueve meses (backend, frontend, contratos, infraestructura y
-        conocimiento de producto), implementados en su mayoría por agentes de Claude Code que orquesto: asigno cada tarea a un
-        modelo según su complejidad, corro agentes en paralelo sobre worktrees aislados (Orca) y les doy acceso a Jira, Slack,
-        AWS, bases de datos y navegador mediante servidores MCP.
-  \item Cada cambio pasa por revisión automática y pruebas antes del merge, y por una verificación e2e en vivo tras desplegarse
-        en desarrollo. Ajusto el proceso cada semana con la telemetría de los agentes: PRs aprobados en la primera revisión
-        del 85 al 92--98\,\% y e2e en verde al primer intento del 73 al 87--90\,\%.
-  \item Más de 150 PRs al plugin de skills del equipo (playbooks de resolución de tickets, recorridos e2e en vivo y guards de
-        «diseño primero» y de plantillas PDF) y aportes a la base de conocimiento de producto que los agentes consultan antes
-        de crear o resolver una tarea.
+  \item Más de 1.400 PRs mergeados en 19 repositorios en nueve meses, en su mayoría de agentes de Claude Code que orquesto:
+        modelo según la complejidad, paralelismo en worktrees (Orca) y MCP para Jira, Slack, AWS, bases de datos y navegador.
+  \item Cada cambio pasa revisión automática y pruebas antes del merge y un e2e en vivo al desplegarse. Con la telemetría de
+        los agentes ajusto el proceso cada semana: a la primera, PRs aprobados del 85 al 92--98\,\% y e2e en verde del 73
+        al 87--90\,\%.
+  \item Más de 150 PRs al plugin de skills del equipo (playbooks de resolución de tickets, recorridos e2e en vivo y guards de «diseño
+        primero» y de plantillas PDF) y aportes a la base de conocimiento de producto que los agentes consultan antes de cada tarea.
 \end{itemize}
 
 \cvproject{Backend y pagos}{Laravel 12, Node.js/Fastify y TypeScript sobre AWS}{}
@@ -120,13 +117,11 @@ venta de cripto, transferencias entre usuarios y un back office para Cumplimient
   \item Servicios de transacciones (Laravel 12, PHP 8.4), usuarios e identidad, BFF, comprobantes, extractos y notificaciones
         sobre AWS (ECS Fargate, Lambda, Aurora PostgreSQL, Cognito, S3, SES), con sagas, outbox, idempotencia y un ledger de
         partida doble.
-  \item Integraciones con banca en USD (apertura de cuentas con KYC y KYB, pagos ACH y SWIFT con compensación contable en dos
-        pasos), un procesador de tarjetas prepago (emisión, recargas desde cripto, disputas y extractos), custodia cripto MPC
-        y una wallet en pesos colombianos. Suite e2e en vivo contra los cuatro sandboxes que valida la API, el proveedor y el
-        ledger; la auditoría del conector de tarjetas dejó 12 hallazgos: 10 corregidos y 2 refutados con evidencia.
-  \item Seguridad y cumplimiento: cerré accesos indebidos entre empresas (IDOR) con permisos HMAC-SHA256 de 60 segundos
-        firmados por el BFF, llevé FATCA a un envío estructurado e inmutable e implementé en cinco repositorios la máquina de
-        estados del alta de empresas. Bajé la suite de 1.648 pruebas de 192 s a 38 s (6 s en paralelo).
+  \item Integraciones con banca en USD (KYC/KYB, ACH y SWIFT), tarjetas prepago, custodia cripto MPC y una wallet en COP, con
+        e2e en vivo contra los cuatro sandboxes. Auditoría del conector de tarjetas: 12 hallazgos, 10 corregidos y 2 refutados
+        con evidencia.
+  \item Cerré accesos indebidos entre empresas (IDOR) con permisos HMAC-SHA256 de 60 segundos firmados por el BFF, llevé FATCA
+        a un envío estructurado e inmutable y bajé la suite de 1.648 pruebas de 192 s a 38 s (6 s en paralelo).
 \end{itemize}
 
 \cvproject{Frontend y diseño}{Next.js 16, Expo/React Native y Claude Design}{}
@@ -134,10 +129,9 @@ venta de cripto, transferencias entre usuarios y un back office para Cumplimient
   \item Casi 300 PRs en el monorepo de front (pnpm y Turborepo): apps web B2C y B2B en Next.js 16 y app móvil en Expo,
         conectadas al BFF por un contrato OpenAPI con mocks (MSW) y control de compatibilidad (oasdiff).
   \item Flujo de diseño a código: las pantallas se diseñan en Claude Design y llegan al repositorio como drops versionados que
-        se portan a Next.js y React Native con un sello de integridad por pantalla. Implementé el gate de CI «diseño primero»,
-        que bloquea toda pantalla B2C que no salga de ese flujo, y gestiono los cambios de diseño como change requests versionados.
-  \item Comprobantes y extractos en PDF (react-pdf) fieles a las plantillas de Claude Design, y módulos del back office para
-        Cumplimiento y Tesorería: colas de fondeo, rechazo masivo de documentos KYC/KYB, disputas e invalidación de FATCA.
+        se portan a Next.js y React Native. Implementé el gate de CI «diseño primero», que bloquea toda pantalla B2C que no
+        salga de ese flujo.
+  \item PDF de comprobantes y extractos (react-pdf) y módulos del back office: colas de fondeo, rechazo masivo de KYC/KYB y disputas.
 \end{itemize}
 
 \cventry{TeamQ Developers}{Quito, Ecuador \textperiodcentered{} Remoto}{Senior Fullstack Developer \textperiodcentered{} Líder Técnico}{Enero 2023 -- Actualidad}
@@ -149,73 +143,56 @@ venta de cripto, transferencias entre usuarios y un back office para Cumplimient
         unas 12 semanas después del primer commit, con la migración de 48 empresas y una ventana de corte de 22 minutos.
   \item Diseñé el aislamiento entre empresas con Row-Level Security de PostgreSQL, cifrado AES-256 por campo con una clave por
         empresa y rotación sin interrupción, SSO OIDC por cliente (secreto o mTLS) y doble factor de autenticación.
-  \item Entrega continua con despliegue blue-green: más de 110 versiones en producción en dos meses, despliegues de menos de
-        un minuto y rollback en 13 segundos. El API se sostiene con 4.801 pruebas automatizadas (97,3\,\% de cobertura),
-        análisis estático en nivel 8 y especificaciones versionadas junto al código (más de 500 requisitos).
-  \item Operación y seguridad: respaldos cifrados con copia externa inmutable, reconstrucción completa ensayada (RPO y RTO
-        de 4 horas), runbooks de despliegue y SDLC alineado con OWASP SAMM. Resueltos los 10 hallazgos de severidad alta de
-        una evaluación de seguridad externa.
+  \item Despliegue blue-green: más de 110 versiones en producción en dos meses, despliegues de menos de un minuto y rollback en
+        13~s. El API suma 4.801 pruebas automatizadas (97,3\,\% de cobertura) y más de 500 requisitos en especificaciones
+        versionadas.
+  \item Respaldos cifrados con copia externa inmutable, reconstrucción ensayada (RPO y RTO de 4 horas), análisis estático
+        en nivel 8 y SDLC alineado con OWASP SAMM. Resueltos los 10 hallazgos de severidad alta de una evaluación de seguridad externa.
 \end{itemize}
 
 \cvproject{HealthHero}{Vacunación escolar en EE.\,UU. \textperiodcentered{} Arquitecto y desarrollador principal del backend}{2023 -- Actualidad}
 \begin{itemize}
   \item \textbf{ERIS}: plataforma multi-tenant para socios regionales (Laravel, MySQL en AWS RDS, SQS, S3). Autor principal del
-        backend: pacientes, consentimientos, inventario de vacunas con trazabilidad por eventos, y facturación y reclamaciones
-        a aseguradoras con ClaimMD (lotes, conciliación de remesas y rechazos).
+        backend: pacientes, consentimientos, inventario de vacunas trazable por eventos, facturación y reclamaciones a
+        aseguradoras (ClaimMD).
   \item Integración HL7 (mensajes VXU) con los registros de inmunización (IIS) de 10 estados: una Abstract Factory resuelve la
         implementación de cada estado y su transporte (REST, SOAP o SFTP), con acuses asíncronos mediante colas diferidas.
-  \item Digitalización masiva de consentimientos en papel con Azure Document Intelligence (modelos a medida y detección de la
-        versión del formulario por código QR) y búsqueda histórica de pacientes sobre MongoDB y Typesense, con puntuación
-        ponderada por atributo y distancia de Levenshtein.
-  \item \textbf{Kronos} (Laravel 12, PHP 8.4): planificación de clínicas por temporada, coordinación de equipos de enfermería,
-        nómina y optimización de rutas con Google Route Optimization. Diseñé su integración con ERIS, que actúa como autoridad
-        OAuth 2.0 del ecosistema. Ambos backends suman más de 2.800 pruebas automatizadas.
+  \item Digitalización masiva de consentimientos en papel con Azure Document Intelligence (modelos a medida y detección de
+        versión por QR) y búsqueda histórica de pacientes sobre MongoDB y Typesense con distancia de Levenshtein.
+  \item \textbf{Kronos} (Laravel 12, PHP 8.4): planificación de clínicas por temporada, enfermería, nómina y rutas con Google
+        Route Optimization. Diseñé su integración con ERIS, autoridad OAuth 2.0 del ecosistema. Ambos backends suman más de
+        2.800 pruebas.
 \end{itemize}
 
 \cvproject{TeamQ SBS}{Suite SaaS de microservicios para pymes \textperiodcentered{} Arquitecto y líder técnico de Omnichat}{2023 -- Actualidad}
 \begin{itemize}
   \item Creé el servicio central de organizaciones (multi-tenant) y lo rediseñé sobre Laravel 12 y Keycloak. Autor de los
-        paquetes compartidos de tenencia y de autenticación (usuarios y máquina a máquina) y de la plantilla base de la que
-        derivan cuatro microservicios; sincronización de identidades Keycloak $\rightarrow$ RabbitMQ $\rightarrow$ servicios.
-  \item \textbf{Omnichat}: bandeja omnicanal sobre WhatsApp Cloud, Messenger, Instagram y Telegram (Laravel 13, Octane, MongoDB,
-        RabbitMQ), de la que soy desarrollador principal. Diseñé el motor de flujos conversacionales como máquina de estados
-        (expiración por inactividad, invalidación al republicar, tope de nodos por turno contra ciclos), un renderizador
-        independiente del canal y el traspaso a agentes humanos.
-  \item IA multi-proveedor por organización (OpenAI, Anthropic, Gemini): cada cliente usa sus propias credenciales, aisladas
-        entre peticiones en los workers de larga vida de Octane.
+        paquetes de tenencia y autenticación y de la plantilla base de cuatro microservicios; sincronización de identidades
+        Keycloak $\rightarrow$ RabbitMQ.
+  \item \textbf{Omnichat} (desarrollador principal): bandeja omnicanal para WhatsApp Cloud, Messenger, Instagram y Telegram
+        (Laravel 13, Octane, MongoDB, RabbitMQ). Diseñé su motor de flujos (máquina de estados) y el traspaso a
+        agentes humanos.
+  \item IA multi-proveedor (OpenAI, Anthropic, Gemini) con credenciales por cliente, aisladas entre peticiones en los workers de Octane.
 \end{itemize}
 
 \cvproject{Terminal Portuario de Guayaquil (TPG)}{Sistemas corporativos e integración con Navis N4}{2023 -- 2026}
 \begin{itemize}
-  \item Backends Laravel con SSO Keycloak para crédito, certificados de carga y contenedores, control de acceso, calificación
-        de proveedores y centro de ayuda; principal contribuidor en cuatro de ellos y autor del starter kit común.
-  \item Integración con Navis N4, el sistema operativo de la terminal: primero un gateway en NestJS/Fastify (plantillas SOAP en
-        MongoDB, caché en Redis) y después un middleware en Apache Camel 4 (YAML DSL, Java 21, Groovy) desplegado en
-        Kubernetes con GitOps. Aporté el endpoint SOAP unificado, orquestaciones en paralelo y un worker asíncrono sobre
-        Redis Sentinel.
-\end{itemize}
-
-\cvproject{TaxiApp}{API de transporte con despacho en tiempo real}{2024 -- 2026}
-\begin{itemize}
-  \item Construí la base del backend: seguimiento GPS en tiempo real (MongoDB y WebSockets con Laravel Reverb), push con FCM,
-        chat, seis idiomas y zona horaria por usuario; después, el despacho automático con colas FIFO de conductores por geocerca.
+  \item Backends Laravel con SSO Keycloak para crédito, carga, accesos, proveedores y centro de ayuda; autor del starter kit común.
+  \item Integración con Navis N4: un gateway en NestJS/Fastify y después un middleware en Apache Camel 4 (Java 21) sobre
+        Kubernetes con GitOps. Aporté el endpoint SOAP unificado, orquestaciones en paralelo y un worker asíncrono sobre Redis Sentinel.
 \end{itemize}
 
 \cvproject{Otros proyectos y aportes internos}{}{}
 \begin{itemize}
-  \item Carga masiva de datos en .NET 10 para una aseguradora de salud, gestión de programas para una universidad y campañas
-        push para una cadena hotelera. Autor de \texttt{teamq-laravel-datatables}, paquete de código abierto con más de 10.000
-        descargas en Packagist, y del starter kit Laravel de la empresa.
-  \item Autor del estándar de trabajo con IA del equipo: skills de Claude Code que cubren la creación de tickets, el flujo de
-        ramas y PR, y la resolución de una tarea de punta a punta (ticket, pruebas, PR, CI y despliegue).
+  \item Base del backend de TaxiApp (2024--2026): GPS en vivo con Laravel Reverb y despacho automático por geocerca. Carga masiva
+        en .NET 10 para una aseguradora de salud, gestión de programas universitarios y campañas push para una cadena hotelera.
+  \item Autor de \texttt{teamq-laravel-datatables} (más de 10.000 descargas), del starter kit Laravel y del estándar de trabajo con IA.
 \end{itemize}
 
 \cventry{Codesofsas}{Guayaquil, Ecuador}{Senior Fullstack Developer}{Agosto 2020 -- Febrero 2023}
 \begin{itemize}
-  \item \textbf{Texcumar} (arquitecto de software): lideré el diseño y desarrollo de la aplicación de control de producción de
-        nauplios de camarón (Laravel, Livewire, AlpineJS), con inventarios y reportes por etapa cubiertos por pruebas automatizadas.
-  \item \textbf{Barcelona Sporting Club}: e-commerce y API para la aplicación móvil oficial del club.
-  \item \textbf{ERP Durán}: desarrollo de un ERP multi-tenant con Laravel y Vue.js.
+  \item \textbf{Texcumar} (arquitecto de software): lideré la app de control de producción de nauplios de camarón (Laravel, Livewire, AlpineJS).
+  \item \textbf{Barcelona Sporting Club}: e-commerce y API de su app móvil oficial. \textbf{ERP Durán}: ERP multi-tenant con Laravel y Vue.js.
 \end{itemize}
 
 \cventry{Freelance}{Milagro, Ecuador}{Desarrollador Fullstack}{Octubre 2018 -- Actualidad}
@@ -229,17 +206,15 @@ venta de cripto, transferencias entre usuarios y un back office para Cumplimient
 \cvproject{Ferretería Calderón}{ERP para una pyme ferretera en Ecuador \textperiodcentered{} Arquitecto e ingeniero a cargo}{2026}
 \begin{itemize}
   \item Punto de venta, inventario con kardex, contabilidad de partida doble y facturación electrónica ante el SRI (firma XAdES
-        y envío SOAP de facturas, notas, retenciones y guías). Laravel 13, React 19 con Inertia, Octane/FrankenPHP y
-        PostgreSQL 18; acceso con 2FA y passkeys.
+        y envío SOAP). Laravel 13, React 19 con Inertia, Octane/FrankenPHP y PostgreSQL 18; acceso con 2FA y passkeys.
   \item Construido con agentes de IA bajo mi dirección: especificaciones versionadas, pruebas y análisis estático como puerta de
         cada cambio (unos 100 merge requests en menos de cuatro meses) y migración del sistema anterior conciliada al centavo.
 \end{itemize}
 
 \cvproject{AI TVoice}{Traductor de voz en tiempo real para videollamadas \textperiodcentered{} Creador}{2025}
 \begin{itemize}
-  \item Aplicación de escritorio en Rust (Tokio, Tauri 2) que captura a la vez el audio del sistema y el micrófono, transcribe con
-        Whisper y traduce con un LLM. Diseñé la cadena de audio completa: detección de voz por energía, segmentación,
-        remuestreo a 16 kHz, resultados parciales en vivo y salida de voz hacia un micrófono virtual.
+  \item Aplicación de escritorio en Rust (Tokio, Tauri 2) que captura el audio del sistema y el micrófono, transcribe con Whisper
+        y traduce con un LLM. Diseñé la cadena de audio: detección de voz, segmentación, remuestreo a 16 kHz y salida a micrófono virtual.
 \end{itemize}
 
 %============================= EDUCACIÓN
