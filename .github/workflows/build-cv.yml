@@ -81,14 +81,21 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          date=$(date -u +%Y-%m-%d)
-          tag="cv-${date}-${GITHUB_SHA::7}"
-          if gh release view "$tag" >/dev/null 2>&1; then
-            gh release upload "$tag" pdf/*.pdf --clobber
-          else
-            gh release create "$tag" pdf/*.pdf \
-              --target "$GITHUB_SHA" \
-              --title "CV ${date}" \
-              --notes "Built from ${GITHUB_SHA::7}." \
-              --latest
+          # Re-running the job for a commit that already has a release replaces its PDFs.
+          existing=$(gh api "repos/${GH_REPO}/releases" --paginate \
+            --jq ".[] | select(.target_commitish == \"${GITHUB_SHA}\") | .tag_name" | head -n 1)
+          if [ -n "$existing" ]; then
+            gh release upload "$existing" pdf/*.pdf --clobber
+            exit 0
           fi
+
+          # Releases are numbered in sequence: cv-YYYY-MM-DD-N.
+          last=$(gh api "repos/${GH_REPO}/releases" --paginate --jq '.[].tag_name' \
+            | sed -nE 's/^cv-[0-9]{4}-[0-9]{2}-[0-9]{2}-([0-9]+)$/\1/p' | sort -n | tail -n 1)
+          number=$(( ${last:-0} + 1 ))
+          date=$(date -u +%Y-%m-%d)
+          gh release create "cv-${date}-${number}" pdf/*.pdf \
+            --target "$GITHUB_SHA" \
+            --title "CV ${number} (${date})" \
+            --notes "Built from ${GITHUB_SHA::7}." \
+            --latest
