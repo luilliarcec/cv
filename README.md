@@ -11,7 +11,7 @@ LaTeX source of my CV. Only the `.tex` files live here; GitHub Actions compiles 
 
 1. Commit changes to `develop`.
 2. Open a pull request from `develop` to `main`. CI compiles every `cv-*.tex` and attaches the PDFs to the run as the `cv-pdf` artifact, so the result can be reviewed before merging.
-3. Merge. CI compiles again and creates a GitHub Release tagged `cv-YYYY-MM-DD-N`, where `N` is a sequential release number, with one PDF per language.
+3. Merge. CI compiles again and creates a GitHub Release tagged `cv-YYYY-MM-DD-N`, where `N` is a sequential release number. The release holds one PDF per language, named `Luis-Arce-CV-<LANG>.pdf` (for example `Luis-Arce-CV-ES.pdf`), and `Luis-Arce-CV.zip` with all of them.
 
 The latest PDFs are always on the [latest release](https://github.com/luilliarcec/cv/releases/latest). The release job also runs when the workflow is started manually on `main` (Actions, Build CV, Run workflow).
 

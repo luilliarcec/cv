@@ -70,22 +70,36 @@ jobs:
     runs-on: ubuntu-24.04
     permissions:
       contents: write
+    env:
+      ASSET_PREFIX: Luis-Arce-CV
     steps:
       - uses: actions/download-artifact@v8
         with:
           name: cv-pdf
           path: pdf
 
+      # cv-es.pdf -> Luis-Arce-CV-ES.pdf, plus Luis-Arce-CV.zip with every PDF.
+      - name: Name release assets
+        run: |
+          mkdir dist
+          for f in pdf/cv-*.pdf; do
+            lang=$(basename "$f" .pdf)
+            lang=${lang#cv-}
+            cp "$f" "dist/${ASSET_PREFIX}-${lang^^}.pdf"
+          done
+          (cd dist && zip -q "${ASSET_PREFIX}.zip" "${ASSET_PREFIX}"-*.pdf)
+          ls -l dist
+
       - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          # Re-running the job for a commit that already has a release replaces its PDFs.
+          # Re-running the job for a commit that already has a release replaces its assets.
           existing=$(gh api "repos/${GH_REPO}/releases" --paginate \
             --jq ".[] | select(.target_commitish == \"${GITHUB_SHA}\") | .tag_name" | head -n 1)
           if [ -n "$existing" ]; then
-            gh release upload "$existing" pdf/*.pdf --clobber
+            gh release upload "$existing" dist/* --clobber
             exit 0
           fi
 
@@ -94,7 +108,7 @@ jobs:
             | sed -nE 's/^cv-[0-9]{4}-[0-9]{2}-[0-9]{2}-([0-9]+)$/\1/p' | sort -n | tail -n 1)
           number=$(( ${last:-0} + 1 ))
           date=$(date -u +%Y-%m-%d)
-          gh release create "cv-${date}-${number}" pdf/*.pdf \
+          gh release create "cv-${date}-${number}" dist/* \
             --target "$GITHUB_SHA" \
             --title "CV ${number} (${date})" \
             --notes "Built from ${GITHUB_SHA::7}." \
