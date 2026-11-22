@@ -1,0 +1,64 @@
+name: Build site
+
+# Builds the website from data/ with Astro and attaches it to the run as the `site` artifact.
+# Publishing to GitHub Pages needs a public repository and is not set up yet.
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "src/**"
+      - "site/**"
+      - "astro.config.mjs"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.json"
+      - ".github/workflows/site.yml"
+  push:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "src/**"
+      - "site/**"
+      - "astro.config.mjs"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.json"
+      - ".github/workflows/site.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Test and type-check
+        run: |
+          npm test
+          npm run typecheck
+
+      - name: Build the site
+        run: npm run site
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: site
+          path: build/site
+          if-no-files-found: error

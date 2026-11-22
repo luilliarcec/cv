@@ -50,6 +50,13 @@ experience:
             Over 150 PRs to the team's skills plugin (ticket-resolution playbooks, live e2e walkthroughs, and
             “design-first” and PDF-template guards), plus contributions to the product knowledge base the agents consult
             before every task.
+        metrics:
+          - value: "1,400+"
+            label: PRs merged with agents
+          - value: "85% → 92–98%"
+            label: PRs approved on the first pass
+          - value: "73% → 87–90%"
+            label: green e2e on the first run
       - id: efy-backend
         name: Backend and payments
         description: Laravel 12, Node.js/Fastify and TypeScript on AWS
@@ -65,6 +72,9 @@ experience:
           - >-
             Closed improper cross-company access (IDOR) with 60-second HMAC-SHA256 permissions signed by the BFF, made
             FATCA submissions structured and immutable, and cut the 1,648-test suite from 192 s to 38 s (6 s in parallel).
+        metrics:
+          - value: "192 s → 38 s"
+            label: 1,648-test suite
       - id: efy-frontend
         name: Frontend and design
         description: Next.js 16, Expo/React Native and Claude Design
@@ -80,6 +90,9 @@ experience:
           - >-
             Receipt and statement PDFs (react-pdf) and back-office modules: funding queues, bulk KYC/KYB rejection and
             disputes.
+        metrics:
+          - value: "~300"
+            label: PRs in the frontend monorepo
 
   - id: teamq
     company: TeamQ Developers
@@ -112,6 +125,13 @@ experience:
             Encrypted backups with an immutable off-site copy, rehearsed rebuild (4-hour RPO and RTO), level-8 static
             analysis and an SDLC aligned with OWASP SAMM. Resolved all 10 high-severity findings from an external
             security assessment.
+        metrics:
+          - value: "4,801"
+            label: automated tests
+          - value: "97.3%"
+            label: coverage
+          - value: "22 min"
+            label: cutover for 48 companies
       - id: healthhero
         name: HealthHero
         description: School vaccination in the U.S.
@@ -131,6 +151,11 @@ experience:
             **Kronos** (Laravel 12, PHP 8.4): seasonal clinic planning, nursing, payroll and routing with Google Route
             Optimization. Designed its integration with ERIS, the ecosystem's OAuth 2.0 authority. The two backends have
             over 2,800 tests combined.
+        metrics:
+          - value: "10"
+            label: state registries over HL7
+          - value: "2,800+"
+            label: tests
       - id: teamq-sbs
         name: TeamQ SBS
         description: Microservices SaaS suite for SMBs
@@ -147,6 +172,11 @@ experience:
           - >-
             Multi-provider AI (OpenAI, Anthropic, Gemini) with per-customer credentials, isolated across requests in
             Octane workers.
+        metrics:
+          - value: "4"
+            label: channels
+          - value: "3"
+            label: LLM providers
       - id: tpg
         name: Terminal Portuario de Guayaquil (TPG)
         description: Corporate systems and Navis N4 integration
@@ -168,6 +198,9 @@ experience:
           - >-
             Author of `teamq-laravel-datatables` (over 10,000 downloads), the Laravel starter kit and the standard for
             working with AI.
+        metrics:
+          - value: "10,000+"
+            label: downloads
 
   - id: codesofsas
     company: Codesofsas
@@ -208,6 +241,9 @@ projects:
       - >-
         Built with AI agents under my direction: versioned specifications, tests and static analysis gating every change
         (about 100 merge requests in under four months), and migration from the previous system reconciled to the cent.
+    metrics:
+      - value: "~100"
+        label: merge requests in under 4 months
   - id: ai-tvoice
     name: AI TVoice
     description: Real-time voice translator for video calls
@@ -291,3 +327,26 @@ skills:
     items:
       - Spanish (native)
       - English (B1)
+
+web:
+  intro: >-
+    Takes language models to production and designs agentic workflows where AI agents implement against specifications
+    and tests, under my review. Multi-tenant SaaS, microservices and critical integrations for clients in Ecuador, the
+    U.S. and Germany.
+  pitch: >-
+    Backend and AI engineering for SaaS platforms, critical integrations and agent-driven delivery. Email or call me, or
+    download the PDF.
+  counters:
+    - value: "8+"
+      label: years of experience
+    - value: "1,400+"
+      label: PRs with AI agents
+    - value: "4,801"
+      label: tests on one API
+    - value: "10,000+"
+      label: package downloads
+  places:
+    home: Milagro, Ecuador
+    efy: Colombia
+    healthhero: U.S.
+    rudy: Germany

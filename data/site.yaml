@@ -1,0 +1,50 @@
+# Website settings that are the same in every language. The PDF ignores this file.
+url: https://luilliarcec.github.io/cv
+repository: https://github.com/luilliarcec/cv
+# Must match ASSET_PREFIX in .github/workflows/build-cv.yml: the site links to the latest release's PDFs.
+pdfPrefix: Luis-Arce-CV
+
+# The scrolling strip under the hero.
+ticker:
+  - Laravel
+  - Octane
+  - PostgreSQL
+  - Claude Code
+  - MCP
+  - Next.js
+  - React Native
+  - Rust
+  - AWS
+  - Keycloak
+  - RabbitMQ
+  - MongoDB
+  - HL7
+  - Apache Camel
+  - Docker
+  - Typesense
+
+# Technologies listed under each entry or project, by id.
+stack:
+  efy: [Claude Code, MCP, Orca, Laravel 12, Node.js, TypeScript, AWS, Next.js 16, Expo]
+  rudy: [Laravel 13, Octane, PostgreSQL 17, Next.js 16]
+  healthhero: [Laravel, AWS, HL7, MongoDB, Typesense, Azure]
+  teamq-sbs: [Laravel 13, Keycloak, RabbitMQ, MongoDB]
+  tpg: [Laravel, Keycloak, NestJS, Apache Camel, Kubernetes]
+  teamq-other: [Laravel Reverb, .NET 10]
+  ferreteria-calderon: [Laravel 13, React 19, Inertia, PostgreSQL 18]
+  ai-tvoice: [Rust, Tokio, Tauri 2, Whisper]
+
+# Skill bars, 0–100, by skill id. Skills without a level (languages) are shown as text.
+levels:
+  development: 95
+  ai: 92
+  architecture: 90
+  data: 84
+  infrastructure: 82
+
+# Map pins, [latitude, longitude]. Names are in each language file under web.places.
+places:
+  home: [-2.13, -79.6]
+  efy: [4.7, -74.1]
+  healthhero: [38.0, -97.0]
+  rudy: [51.0, 10.0]

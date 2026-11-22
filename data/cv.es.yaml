@@ -50,6 +50,13 @@ experience:
             Más de 150 PRs al plugin de skills del equipo (playbooks de resolución de tickets, recorridos e2e en vivo y
             guards de «diseño primero» y de plantillas PDF) y aportes a la base de conocimiento de producto que los agentes
             consultan antes de cada tarea.
+        metrics:
+          - value: "1.400+"
+            label: PRs mergeados con agentes
+          - value: "85&thinsp;% → 92–98&thinsp;%"
+            label: PRs aprobados a la primera
+          - value: "73&thinsp;% → 87–90&thinsp;%"
+            label: e2e en verde al primer intento
       - id: efy-backend
         name: Backend y pagos
         description: Laravel 12, Node.js/Fastify y TypeScript sobre AWS
@@ -65,6 +72,9 @@ experience:
           - >-
             Cerré accesos indebidos entre empresas (IDOR) con permisos HMAC-SHA256 de 60 segundos firmados por el BFF, llevé
             FATCA a un envío estructurado e inmutable y bajé la suite de 1.648 pruebas de 192 s a 38 s (6 s en paralelo).
+        metrics:
+          - value: "192 s → 38 s"
+            label: suite de 1.648 pruebas
       - id: efy-frontend
         name: Frontend y diseño
         description: Next.js 16, Expo/React Native y Claude Design
@@ -79,6 +89,9 @@ experience:
           - >-
             PDF de comprobantes y extractos (react-pdf) y módulos del back office: colas de fondeo, rechazo masivo de
             KYC/KYB y disputas.
+        metrics:
+          - value: "~300"
+            label: PRs en el monorepo de front
 
   - id: teamq
     company: TeamQ Developers
@@ -112,6 +125,13 @@ experience:
             Respaldos cifrados con copia externa inmutable, reconstrucción ensayada (RPO y RTO de 4 horas), análisis
             estático en nivel 8 y SDLC alineado con OWASP SAMM. Resueltos los 10 hallazgos de severidad alta de una
             evaluación de seguridad externa.
+        metrics:
+          - value: "4.801"
+            label: pruebas automatizadas
+          - value: "97,3&thinsp;%"
+            label: de cobertura
+          - value: "22 min"
+            label: de corte para 48 empresas
       - id: healthhero
         name: HealthHero
         description: Vacunación escolar en EE.&thinsp;UU.
@@ -132,6 +152,11 @@ experience:
             **Kronos** (Laravel 12, PHP 8.4): planificación de clínicas por temporada, enfermería, nómina y rutas con
             Google Route Optimization. Diseñé su integración con ERIS, autoridad OAuth 2.0 del ecosistema. Ambos backends
             suman más de 2.800 pruebas.
+        metrics:
+          - value: "10"
+            label: registros estatales por HL7
+          - value: "2.800+"
+            label: pruebas
       - id: teamq-sbs
         name: TeamQ SBS
         description: Suite SaaS de microservicios para pymes
@@ -148,6 +173,11 @@ experience:
           - >-
             IA multi-proveedor (OpenAI, Anthropic, Gemini) con credenciales por cliente, aisladas entre peticiones en los
             workers de Octane.
+        metrics:
+          - value: "4"
+            label: canales
+          - value: "3"
+            label: proveedores de LLM
       - id: tpg
         name: Terminal Portuario de Guayaquil (TPG)
         description: Sistemas corporativos e integración con Navis N4
@@ -169,6 +199,9 @@ experience:
           - >-
             Autor de `teamq-laravel-datatables` (más de 10.000 descargas), del starter kit Laravel y del estándar de
             trabajo con IA.
+        metrics:
+          - value: "10.000+"
+            label: descargas
 
   - id: codesofsas
     company: Codesofsas
@@ -210,6 +243,9 @@ projects:
         Construido con agentes de IA bajo mi dirección: especificaciones versionadas, pruebas y análisis estático como
         puerta de cada cambio (unos 100 merge requests en menos de cuatro meses) y migración del sistema anterior
         conciliada al centavo.
+    metrics:
+      - value: "~100"
+        label: merge requests en menos de 4 meses
   - id: ai-tvoice
     name: AI TVoice
     description: Traductor de voz en tiempo real para videollamadas
@@ -293,3 +329,26 @@ skills:
     items:
       - Español (nativo)
       - inglés (B1)
+
+web:
+  intro: >-
+    Llevo modelos de lenguaje a producción y diseño flujos agénticos donde agentes de IA implementan bajo
+    especificaciones, pruebas y mi revisión. SaaS multi-tenant, microservicios e integraciones críticas para clientes de
+    Ecuador, EE.&thinsp;UU. y Alemania.
+  pitch: >-
+    Ingeniería backend e IA para plataformas SaaS, integraciones críticas y entrega con agentes. Escríbeme o llámame, o
+    descarga el PDF.
+  counters:
+    - value: "8+"
+      label: años de experiencia
+    - value: "1.400+"
+      label: PRs con agentes de IA
+    - value: "4.801"
+      label: pruebas en un solo API
+    - value: "10.000+"
+      label: descargas de mi paquete
+  places:
+    home: Milagro, Ecuador
+    efy: Colombia
+    healthhero: EE.&thinsp;UU.
+    rudy: Alemania

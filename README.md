@@ -1,14 +1,19 @@
 # CV
 
-My CV, kept as data. The YAML files in `data/` are the only source: a script turns them into LaTeX, GitHub Actions compiles the PDFs and publishes a release every time `develop` is merged into `main`. The website will be generated from the same files.
+My CV, kept as data. The YAML files in `data/` are the only source for both outputs:
+
+- **PDF**: a script turns the data into LaTeX, and GitHub Actions compiles the PDFs and publishes a release every time `develop` is merged into `main`.
+- **Website**: an [Astro](https://astro.build) site in `site/` renders the same data, in English at `/` and in Spanish at `/es/`. CI builds it on every pull request. Publishing it to GitHub Pages needs a public repository and is not set up yet.
 
 | File | Contents |
 |---|---|
 | `data/contact.yaml` | Name, location, email, phone and links. The same in every language. |
-| `data/cv.es.yaml` | Everything written in Spanish: headline, profile, experience, projects, education, skills. |
+| `data/cv.es.yaml` | Everything written in Spanish: headline, profile, experience, projects, education, skills, and the website-only texts under `web`. |
 | `data/cv.en.yaml` | The same in English. |
+| `data/site.yaml` | Website settings that are the same in every language: URL, ticker, stack per entry, skill bar levels, map pins. |
 | `templates/cv.tex` | The LaTeX layout: preamble, colors and the `\cventry`, `\cvproject` and `\cvskill` blocks. |
-| `src/`, `scripts/` | The schema, the loader and the LaTeX generator (TypeScript, run by Node without a build step). |
+| `src/`, `scripts/` | The schema, the loader and the LaTeX and HTML text converters (TypeScript, run by Node without a build step). |
+| `site/` | The website: pages, components, styles, the avatar and the interface text in both languages (`site/lib/i18n.ts`). |
 
 ## Workflow
 
@@ -33,6 +38,14 @@ Every language file has the same entries in the same order, with the same `id`s,
 
 The schema in [`src/schema.ts`](src/schema.ts) lists every field. Unknown fields are rejected, so a typo in a field name fails instead of disappearing silently.
 
+Some fields only feed the website and never reach the PDF:
+
+- `web` in each language file: the short `intro` under the name, the contact `pitch`, the `counters` under the hero and the map's place names (`places`).
+- `metrics` on a project: headline numbers shown as chips (`value: "4,801"`, `label: automated tests`). The rewards panel of the current mission collects the metrics of its projects.
+- `data/site.yaml`: the `stack` tags of each entry or project, the skill bar `levels` (0–100; a skill without a level, like languages, is listed as text) and the map pins (`places`, as `[latitude, longitude]`, with `home` for the contact location). `npm test` fails if any of these points at an id that does not exist.
+
+On the website, the first experience entry is the current mission, the other entries with projects become mission cards, and entries without projects are listed with the education as previous chapters.
+
 ## Adding a language
 
 1. Add `data/cv.<lang>.yaml`, a translation of an existing file with the same entries.
@@ -45,9 +58,13 @@ Requires Node 24 or later. For the PDFs, also `pdflatex` and `latexmk` with the 
 
 ```bash
 npm ci
-npm test        # validate the data and the generator
+npm test        # validate the data and the generators
 npm run tex     # write build/cv-es.tex and build/cv-en.tex
 npm run pdf     # the above, then compile them to build/cv-es.pdf and build/cv-en.pdf
+npm run dev     # the website with live reload, at http://localhost:4321/cv/
+npm run site    # build the website into build/site/ (npm run preview serves it)
 ```
 
 Without `latexmk`, run `pdflatex cv-es.tex` twice inside `build/`. Everything in `build/` is ignored by git.
+
+The website's PDF buttons point at the latest release's assets (`releases/latest/download/Luis-Arce-CV-<LANG>.pdf`), so they only work once the repository is public.

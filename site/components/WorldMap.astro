@@ -1,0 +1,83 @@
+---
+// A tactical-style map: pins from data/site.yaml, arcs from the home pin to every other one.
+import type { Pin } from "../lib/view.ts";
+
+interface Props {
+  pins: Pin[];
+  colors: string[];
+}
+const { pins, colors } = Astro.props;
+
+// Equirectangular window covering the Americas and Western Europe.
+const W = 600;
+const H = 320;
+const LON = [-130, 30];
+const LAT = [65, -15];
+const at = (p: Pin) => ({
+  x: Math.round(((p.lon - LON[0]) / (LON[1] - LON[0])) * W),
+  y: Math.round(((LAT[0] - p.lat) / (LAT[0] - LAT[1])) * H),
+});
+
+const home = pins.find((p) => p.id === "home") ?? pins[0];
+const h = home ? at(home) : { x: W / 2, y: H / 2 };
+const others = pins.filter((p) => p !== home).map((p, i) => ({ ...p, ...at(p), color: colors[i % colors.length] }));
+const gridX = Array.from({ length: 17 }, (_, i) => i * 37.5);
+const gridY = Array.from({ length: 9 }, (_, i) => i * 40);
+const right = (x: number) => x > W - 120;
+---
+
+<svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="map-bg" cx="32%" cy="84%" r="80%">
+      <stop offset="0" stop-color="#1d0f3a" /><stop offset="1" stop-color="#0b0516" />
+    </radialGradient>
+    <linearGradient id="map-sweep" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#19e3d4" stop-opacity="0" /><stop offset="1" stop-color="#19e3d4" stop-opacity=".22" />
+    </linearGradient>
+    <clipPath id="map-clip"><rect width={W} height={H} /></clipPath>
+  </defs>
+  <rect width={W} height={H} fill="url(#map-bg)" />
+  <g stroke="rgba(25,227,212,.10)" stroke-width="1">
+    {gridX.map((x) => <line x1={x} y1="0" x2={x} y2={H} />)}
+    {gridY.map((y) => <line x1="0" y1={y} x2={W} y2={y} />)}
+  </g>
+  <g clip-path="url(#map-clip)" fill="none">
+    {[90, 180, 300].map((r, i) => <circle cx={h.x} cy={h.y} r={r} stroke={`rgba(25,227,212,${[0.25, 0.15, 0.1][i]})`} />)}
+    <path
+      class="sweep"
+      style={`transform-origin:${h.x}px ${h.y}px`}
+      d={`M${h.x} ${h.y} L${h.x + 200} ${h.y} A200 200 0 0 0 ${h.x + 188} ${h.y - 68} Z`}
+      fill="url(#map-sweep)"
+    />
+  </g>
+  {
+    others.map((p) => (
+      <g>
+        <path
+          d={`M${h.x} ${h.y} Q${(h.x + p.x) / 2} ${Math.min(h.y, p.y) - 60} ${p.x} ${p.y}`}
+          fill="none"
+          stroke={p.color}
+          stroke-width="2"
+          stroke-dasharray="6 6"
+          opacity=".85"
+        />
+        <circle cx={p.x} cy={p.y} r="6" fill={p.color} stroke="#07030d" stroke-width="2" />
+        <circle class="ping" cx={p.x} cy={p.y} r="6" fill="none" stroke={p.color} stroke-width="2" />
+        <text x={right(p.x) ? p.x - 10 : p.x + 12} y={p.y - 10} text-anchor={right(p.x) ? "end" : "start"} fill="#fff3dc"
+          font-family="Barlow Condensed" font-weight="700" font-size="15" letter-spacing="1">{p.label.toUpperCase()}</text>
+        <text x={right(p.x) ? p.x - 10 : p.x + 12} y={p.y + 6} text-anchor={right(p.x) ? "end" : "start"} fill="#bba9da"
+          font-family="Barlow Condensed" font-size="13">{p.place}</text>
+      </g>
+    ))
+  }
+  {
+    home && (
+      <g>
+        <polygon points={`${h.x},${h.y - 12} ${h.x + 9},${h.y + 9} ${h.x},${h.y + 4} ${h.x - 9},${h.y + 9}`} fill="#ffc35c" stroke="#07030d" stroke-width="2" />
+        <text x={h.x - 16} y={h.y + 6} text-anchor="end" fill="#ffc35c" font-family="Barlow Condensed" font-weight="700" font-size="15" letter-spacing="1">{home.label.toUpperCase()}</text>
+        <text x={h.x - 16} y={h.y + 22} text-anchor="end" fill="#bba9da" font-family="Barlow Condensed" font-size="13">{home.place}</text>
+      </g>
+    )
+  }
+  <text x={W - 14} y={H - 16} text-anchor="end" fill="rgba(25,227,212,.55)" font-family="Barlow Condensed" font-weight="700" font-size="12" letter-spacing="3">N ▲</text>
+</svg>

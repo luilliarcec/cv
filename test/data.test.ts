@@ -27,7 +27,7 @@ test("every language renders a complete LaTeX document", () => {
 
 function copyData(edit: (file: string, text: string) => string): string {
   const dir = mkdtempSync(join(tmpdir(), "cv-data-"));
-  for (const file of ["contact.yaml", "cv.es.yaml", "cv.en.yaml"]) {
+  for (const file of ["contact.yaml", "site.yaml", "cv.es.yaml", "cv.en.yaml"]) {
     writeFileSync(join(dir, file), edit(file, readFileSync(join(dataDir, file), "utf8")));
   }
   return dir;
@@ -36,6 +36,16 @@ function copyData(edit: (file: string, text: string) => string): string {
 test("rejects a language whose dates drift from the others", () => {
   const dir = copyData((file, text) => (file === "cv.en.yaml" ? text.replace("start: 2020-08", "start: 2020-09") : text));
   assert.throws(() => loadCv(dir), /cv\.es\.yaml does not line up with data\/cv\.en\.yaml/);
+});
+
+test("rejects site settings that point at ids that do not exist", () => {
+  const dir = copyData((file, text) => (file === "site.yaml" ? text.replace("  rudy: [Laravel 13", "  rudi: [Laravel 13") : text));
+  assert.throws(() => loadCv(dir), /data\/site\.yaml: stack refers to unknown ids: rudi/);
+});
+
+test("rejects map pins without a name in every language", () => {
+  const dir = copyData((file, text) => (file === "cv.es.yaml" ? text.replace("    rudy: Alemania\n", "") : text));
+  assert.throws(() => loadCv(dir), /cv\.es\.yaml/);
 });
 
 test("rejects unknown fields with the file name in the message", () => {
