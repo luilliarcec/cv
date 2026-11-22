@@ -1,7 +1,8 @@
 name: Build site
 
-# Builds the website from data/ with Astro and attaches it to the run as the `site` artifact.
-# Publishing to GitHub Pages needs a public repository and is not set up yet.
+# Builds the website from data/ with Astro.
+# Pull requests to main: build only, the site is attached to the run as the `github-pages` artifact.
+# Push to main (a merged PR) or a manual run on main: build and deploy to GitHub Pages.
 
 on:
   pull_request:
@@ -33,7 +34,8 @@ permissions:
 
 concurrency:
   group: site-${{ github.ref }}
-  cancel-in-progress: true
+  # Never cancel a deployment halfway; superseded pull request builds can go.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
@@ -57,8 +59,20 @@ jobs:
       - name: Build the site
         run: npm run site
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-pages-artifact@v5
         with:
-          name: site
           path: build/site
-          if-no-files-found: error
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

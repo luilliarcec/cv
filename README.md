@@ -3,7 +3,7 @@
 My CV, kept as data. The YAML files in `data/` are the only source for both outputs:
 
 - **PDF**: a script turns the data into LaTeX, and GitHub Actions compiles the PDFs and publishes a release every time `develop` is merged into `main`.
-- **Website**: an [Astro](https://astro.build) site in `site/` renders the same data, in English at `/` and in Spanish at `/es/`. CI builds it on every pull request. Publishing it to GitHub Pages needs a public repository and is not set up yet.
+- **Website**: an [Astro](https://astro.build) site in `site/` renders the same data, in English at `/` and in Spanish at `/es/`, published at <https://luilliarcec.github.io/cv/>. CI builds it on every pull request and deploys it to GitHub Pages when a change reaches `main`.
 
 | File | Contents |
 |---|---|
@@ -19,7 +19,7 @@ My CV, kept as data. The YAML files in `data/` are the only source for both outp
 
 1. Edit the data on `develop`, run `npm test` and `npm run tex`, and commit.
 2. Open a pull request from `develop` to `main`. CI validates the data, generates `build/cv-<lang>.tex`, compiles every one of them and attaches the PDFs to the run as the `cv-pdf` artifact, so the result can be reviewed before merging.
-3. Merge. CI builds again and creates a GitHub Release tagged `cv-YYYY-MM-DD-N`, where `N` is a sequential release number. The release holds one PDF per language, named `Luis-Arce-CV-<LANG>.pdf` (for example `Luis-Arce-CV-ES.pdf`), and `Luis-Arce-CV.zip` with all of them.
+3. Merge. The `Build site` workflow deploys the website, and `Build CV` builds again and creates a GitHub Release tagged `cv-YYYY-MM-DD-N`, where `N` is a sequential release number. The release holds one PDF per language, named `Luis-Arce-CV-<LANG>.pdf` (for example `Luis-Arce-CV-ES.pdf`), and `Luis-Arce-CV.zip` with all of them.
 
 The latest PDFs are always on the [latest release](https://github.com/luilliarcec/cv/releases/latest). The release job also runs when the workflow is started manually on `main` (Actions, Build CV, Run workflow).
 
@@ -67,4 +67,4 @@ npm run site    # build the website into build/site/ (npm run preview serves it)
 
 Without `latexmk`, run `pdflatex cv-es.tex` twice inside `build/`. Everything in `build/` is ignored by git.
 
-The website's PDF buttons point at the latest release's assets (`releases/latest/download/Luis-Arce-CV-<LANG>.pdf`), so they only work once the repository is public.
+The website's PDF buttons point at the latest release's assets (`releases/latest/download/Luis-Arce-CV-<LANG>.pdf`), so a data change shows on the site as soon as it is deployed and in the PDFs once the Build CV release finishes.
