@@ -1,4 +1,4 @@
-# Only the LaTeX sources are versioned; PDFs are built by CI.
+# LaTeX and PDFs are generated from data/ (npm run tex, then CI or npm run pdf); none are versioned.
 *.pdf
 build/
 
@@ -10,3 +10,6 @@ build/
 *.out
 *.synctex.gz
 *.toc
+
+# Dependencies
+node_modules/

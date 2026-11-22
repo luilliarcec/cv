@@ -1,0 +1,293 @@
+# CV in English. Generates build/cv-en.tex (and the PDF) and, later, the English version of the website.
+# Text conventions: see "Editing the data" in the README.
+lang: en
+
+labels:
+  profile: Profile
+  experience: Professional experience
+  projects: Independent projects
+  education: Education
+  skills: Technical skills
+  present: Present
+
+headline:
+  - Senior Software Engineer
+  - AI Engineer
+  - Backend Architecture
+
+profile: >-
+  Systems engineer with more than 8 years of experience and a focus on applied AI engineering. Takes language models to
+  production (multi-LLM assistants, speech transcription and translation, document extraction) and designs agentic
+  workflows in which AI agents implement against specifications and tests, subject to my review. Builds and operates
+  multi-tenant SaaS platforms, microservices and critical integrations in fintech, healthcare, port logistics and HR for
+  clients in Ecuador, the U.S. and Germany, with Laravel/PHP at the core along with Node.js, Java, .NET and Rust. As tech
+  lead, owns architecture, security, quality and operations.
+
+experience:
+  - id: efy
+    company: EFY
+    location: Colombia · Remote
+    role: AI Engineer
+    start: 2026-02
+    end: present
+    summary: >-
+      B2B and B2C fintech for Latin America: custodial crypto wallets, USD bank accounts, prepaid cards, buying and selling
+      crypto, user-to-user transfers and a back office for Compliance and Treasury.
+    projects:
+      - id: efy-agentic
+        name: Agentic engineering
+        description: Building the platform with AI agents under my direction
+        highlights:
+          - >-
+            Over 1,400 PRs merged across 19 repositories in nine months, mostly from Claude Code agents under my
+            orchestration: model chosen by complexity, parallel work in worktrees (Orca) and MCP for Jira, Slack, AWS,
+            databases and the browser.
+          - >-
+            Every change passes automated review and tests before merge, and a live e2e run on deploy. Agent telemetry
+            drives weekly process tuning: first-pass PR approval went from 85 to 92–98% and first-pass green e2e runs from
+            73 to 87–90%.
+          - >-
+            Over 150 PRs to the team's skills plugin (ticket-resolution playbooks, live e2e walkthroughs, and
+            “design-first” and PDF-template guards), plus contributions to the product knowledge base the agents consult
+            before every task.
+      - id: efy-backend
+        name: Backend and payments
+        description: Laravel 12, Node.js/Fastify and TypeScript on AWS
+        highlights:
+          - >-
+            Services for transactions (Laravel 12, PHP 8.4), users and identity, BFF, receipts, statements and
+            notifications on AWS (ECS Fargate, Lambda, Aurora PostgreSQL, Cognito, S3, SES), with sagas, outbox,
+            idempotency and a double-entry ledger.
+          - >-
+            Integrations with USD banking (KYC/KYB, ACH and SWIFT), prepaid cards, MPC crypto custody and a COP wallet, with
+            live e2e tests against all four sandboxes. Card connector audit: 12 findings, 10 fixed and 2 refuted with
+            evidence.
+          - >-
+            Closed improper cross-company access (IDOR) with 60-second HMAC-SHA256 permissions signed by the BFF, made
+            FATCA submissions structured and immutable, and cut the 1,648-test suite from 192 s to 38 s (6 s in parallel).
+      - id: efy-frontend
+        name: Frontend and design
+        description: Next.js 16, Expo/React Native and Claude Design
+        highlights:
+          - >-
+            Nearly 300 PRs in the frontend monorepo (pnpm and Turborepo): B2C and B2B web apps in Next.js 16 and a mobile
+            app in Expo, connected to the BFF through an OpenAPI contract with mocks (MSW) and compatibility checks
+            (oasdiff).
+          - >-
+            Design-to-code flow: screens are designed in Claude Design and reach the repository as versioned drops that
+            are ported to Next.js and React Native. Implemented the “design-first” CI gate, which blocks any B2C screen
+            that does not come out of that flow.
+          - >-
+            Receipt and statement PDFs (react-pdf) and back-office modules: funding queues, bulk KYC/KYB rejection and
+            disputes.
+
+  - id: teamq
+    company: TeamQ Developers
+    location: Ecuador · Remote
+    role: AI Engineer · Tech Lead
+    start: 2023-01
+    end: present
+    summary: >-
+      Custom software development company with clients in Ecuador, the U.S. and Germany: SaaS platforms, microservices
+      and integrations for healthcare, port logistics, human resources and SMBs.
+    projects:
+      - id: rudy
+        name: RUDY
+        description: B2B SaaS for employment references in the German market
+        role: Architect and tech lead
+        highlights:
+          - >-
+            Led the full rewrite of the platform: three legacy applications (CakePHP, Laravel and Angular on MySQL)
+            consolidated into a Laravel 13 API with Octane/FrankenPHP on PostgreSQL 17 and a Next.js 16 frontend. Went
+            live about 12 weeks after the first commit, migrating 48 companies within a 22-minute cutover window.
+          - >-
+            Designed cross-company isolation with PostgreSQL Row-Level Security, field-level AES-256 encryption with a
+            per-company key and zero-downtime rotation, per-customer OIDC SSO (secret or mTLS) and two-factor
+            authentication.
+          - >-
+            Blue-green deployment: over 110 production releases in two months, sub-minute deploys and rollback in
+            13&nbsp;s. The API has 4,801 automated tests (97.3% coverage) and over 500 requirements in versioned
+            specifications.
+          - >-
+            Encrypted backups with an immutable off-site copy, rehearsed rebuild (4-hour RPO and RTO), level-8 static
+            analysis and an SDLC aligned with OWASP SAMM. Resolved all 10 high-severity findings from an external
+            security assessment.
+      - id: healthhero
+        name: HealthHero
+        description: School vaccination in the U.S.
+        role: Architect and tech lead
+        highlights:
+          - >-
+            **ERIS**: multi-tenant platform for regional partners (Laravel, MySQL on AWS RDS, SQS, S3). Primary author of
+            the backend: patients, consents, event-traceable vaccine inventory, billing and insurance claims (ClaimMD).
+          - >-
+            HL7 integration (VXU messages) with the immunization registries (IIS) of 10 states: an Abstract Factory
+            resolves each state's implementation and its transport (REST, SOAP or SFTP), with asynchronous
+            acknowledgments via delayed queues.
+          - >-
+            Bulk digitization of paper consent forms with Azure Document Intelligence (custom models and QR-based version
+            detection) and historical patient search on MongoDB and Typesense using Levenshtein distance.
+          - >-
+            **Kronos** (Laravel 12, PHP 8.4): seasonal clinic planning, nursing, payroll and routing with Google Route
+            Optimization. Designed its integration with ERIS, the ecosystem's OAuth 2.0 authority. The two backends have
+            over 2,800 tests combined.
+      - id: teamq-sbs
+        name: TeamQ SBS
+        description: Microservices SaaS suite for SMBs
+        role: Architect and tech lead of Omnichat
+        highlights:
+          - >-
+            Built the central organizations service (multi-tenant) and redesigned it on Laravel 12 and Keycloak. Author
+            of the tenancy and authentication packages and of the base template for four microservices; Keycloak →
+            RabbitMQ identity sync.
+          - >-
+            **Omnichat** (main developer): omnichannel inbox for WhatsApp Cloud, Messenger, Instagram and Telegram
+            (Laravel 13, Octane, MongoDB, RabbitMQ). Designed its flow engine (state machine) and the handoff to human
+            agents.
+          - >-
+            Multi-provider AI (OpenAI, Anthropic, Gemini) with per-customer credentials, isolated across requests in
+            Octane workers.
+      - id: tpg
+        name: Terminal Portuario de Guayaquil (TPG)
+        description: Corporate systems and Navis N4 integration
+        highlights:
+          - >-
+            Laravel backends with Keycloak SSO for credit, cargo, access control, suppliers and help center; author of
+            the shared starter kit.
+          - >-
+            Navis N4 integration: first a NestJS/Fastify gateway, then an Apache Camel 4 (Java 21) middleware on
+            Kubernetes with GitOps. Contributed the unified SOAP endpoint, parallel orchestrations and an asynchronous
+            worker on Redis Sentinel.
+      - id: teamq-other
+        name: Other projects and internal contributions
+        highlights:
+          - >-
+            TaxiApp backend foundation (2024–2026): live GPS with Laravel Reverb and automatic geofence-based dispatch.
+            Bulk data loading in .NET 10 for a health insurer, university program management and push campaigns for a
+            hotel chain.
+          - >-
+            Author of `teamq-laravel-datatables` (over 10,000 downloads), the Laravel starter kit and the standard for
+            working with AI.
+
+  - id: codesofsas
+    company: Codesofsas
+    location: Ecuador · Remote
+    role: Senior Fullstack Developer
+    start: 2020-08
+    end: 2023-02
+    highlights:
+      - >-
+        **Texcumar** (software architect): led the production-control app for shrimp nauplii (Laravel, Livewire,
+        AlpineJS).
+      - >-
+        **Barcelona Sporting Club**: e-commerce and API for its official mobile app. **ERP Durán**: multi-tenant ERP on
+        Laravel and Vue.js.
+
+  - id: freelance
+    company: Freelance
+    location: Ecuador
+    role: Senior Software Engineer
+    start: 2018-10
+    end: present
+    highlights:
+      - >-
+        Custom software across multiple languages and technologies: architecture, web and desktop development, DevOps and
+        now AI.
+
+projects:
+  - id: ferreteria-calderon
+    name: Ferretería Calderón
+    description: ERP for a small hardware store business in Ecuador
+    role: Architect and engineer in charge
+    start: 2026
+    highlights:
+      - >-
+        Point of sale, inventory with a kardex stock ledger, double-entry accounting and SRI electronic invoicing (XAdES
+        signing and SOAP submission). Laravel 13, React 19 with Inertia, Octane/FrankenPHP and PostgreSQL 18; sign-in with
+        2FA and passkeys.
+      - >-
+        Built with AI agents under my direction: versioned specifications, tests and static analysis gating every change
+        (about 100 merge requests in under four months), and migration from the previous system reconciled to the cent.
+  - id: ai-tvoice
+    name: AI TVoice
+    description: Real-time voice translator for video calls
+    role: Creator
+    start: 2025
+    highlights:
+      - >-
+        Rust desktop app (Tokio, Tauri 2) that captures system and microphone audio, transcribes with Whisper and
+        translates with an LLM. Designed the audio pipeline: voice activity detection, segmentation, resampling to 16 kHz
+        and output to a virtual microphone.
+
+education:
+  - id: unemi-masters
+    institution: Universidad Estatal de Milagro
+    location: Milagro, Ecuador
+    degree: Master's in Software Engineering · Intelligent and data-intensive systems
+    start: 2025-10
+    end: present
+  - id: unemi-engineering
+    institution: Universidad Estatal de Milagro
+    location: Milagro, Ecuador
+    degree: B.Eng. in Systems Engineering
+    end: 2020-02
+
+skills:
+  - id: ai
+    name: AI engineering
+    items:
+      - LLM integration (OpenAI, Anthropic, Gemini)
+      - agents and skills (Claude Code, Orca, MCP)
+      - Whisper
+      - OCR
+  - id: development
+    name: Development
+    items:
+      - PHP 8.4
+      - Laravel (expert)
+      - Octane
+      - Node.js (NestJS)
+      - C#/.NET
+      - Java
+      - Rust
+      - React (Next.js)
+      - React Native
+      - Vue.js
+  - id: architecture
+    name: Architecture and security
+    items:
+      - Multi-tenant SaaS
+      - microservices
+      - events
+      - DDD
+      - REST/SOAP/HL7
+      - OAuth 2.0
+      - OIDC
+      - Keycloak
+      - mTLS
+  - id: data
+    name: Data and messaging
+    items:
+      - PostgreSQL (RLS)
+      - MySQL
+      - SQL Server (T-SQL)
+      - MongoDB
+      - Redis
+      - Typesense
+      - RabbitMQ
+      - AWS SQS
+  - id: infrastructure
+    name: Infrastructure and quality
+    items:
+      - Docker
+      - AWS
+      - Azure
+      - GitHub Actions
+      - blue-green deployment
+      - TDD (Pest, PHPUnit)
+      - PHPStan/Larastan
+  - id: languages
+    name: Languages
+    items:
+      - Spanish (native)
+      - English (B1)
