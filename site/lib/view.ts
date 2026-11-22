@@ -7,11 +7,10 @@ import { LANGS, type Lang } from "../../src/locales.ts";
 import type { Edition, Project } from "../../src/schema.ts";
 import { DEFAULT_LANG, UI, type Ui } from "./i18n.ts";
 
-let cached: CvData | undefined;
+// Read on every render, not cached: the files are small, and `npm run dev` then shows data edits on reload.
+// Astro runs from the repository root, where data/ lives.
 function data(): CvData {
-  // Astro runs from the repository root, where data/ lives.
-  cached ??= loadCv(join(process.cwd(), "data"));
-  return cached;
+  return loadCv(join(process.cwd(), "data"));
 }
 
 export type Metric = { value: string; label: string };
