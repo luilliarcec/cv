@@ -13,3 +13,6 @@ build/
 
 # Dependencies
 node_modules/
+
+# Astro
+.astro/

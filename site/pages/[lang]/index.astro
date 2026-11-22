@@ -1,0 +1,16 @@
+---
+// Every language other than the default one, at /<lang>/.
+import { LANGS, type Lang } from "../../../src/locales.ts";
+import CvPage from "../../components/CvPage.astro";
+import Layout from "../../components/Layout.astro";
+import { DEFAULT_LANG } from "../../lib/i18n.ts";
+import { view } from "../../lib/view.ts";
+
+export function getStaticPaths() {
+  return LANGS.filter((lang) => lang !== DEFAULT_LANG).map((lang) => ({ params: { lang } }));
+}
+
+const v = view(Astro.params.lang as Lang);
+---
+
+<Layout v={v}><CvPage v={v} /></Layout>

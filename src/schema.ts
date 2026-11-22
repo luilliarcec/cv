@@ -10,6 +10,9 @@ const End = z.union([z.literal("present"), YearMonth]);
 
 const Highlights = z.array(text).min(1);
 
+// A headline number for the website: "4,801" + "tests". Not used in the PDF.
+export const Metric = z.strictObject({ value: text, label: text });
+
 export const Project = z.strictObject({
   id,
   name: text,
@@ -18,6 +21,7 @@ export const Project = z.strictObject({
   start: YearMonth.optional(),
   end: End.optional(),
   highlights: Highlights,
+  metrics: z.array(Metric).min(1).optional(),
 });
 
 export const Experience = z
@@ -66,6 +70,31 @@ export const Edition = z.strictObject({
   projects: z.array(Project),
   education: z.array(Education),
   skills: z.array(Skill),
+  // Text that only the website shows.
+  web: z.strictObject({
+    intro: text,
+    pitch: text,
+    counters: z.array(Metric).min(1),
+    // Place names for the map, keyed like the coordinates in data/site.yaml.
+    places: z.record(id, text),
+  }),
+});
+
+// Website settings that are the same in every language: data/site.yaml.
+const Latitude = z.number().min(-90).max(90);
+const Longitude = z.number().min(-180).max(180);
+export const Site = z.strictObject({
+  url: z.url(),
+  repository: z.url(),
+  // Release assets are named <pdfPrefix>-<LANG>.pdf by the Build CV workflow (its ASSET_PREFIX).
+  pdfPrefix: text,
+  ticker: z.array(text).min(1),
+  // Technologies shown under an experience entry or project, keyed by its id.
+  stack: z.record(id, z.array(text).min(1)),
+  // Skill bar levels, 0–100, keyed by skill id. Skills without a level are listed without a bar.
+  levels: z.record(id, z.number().int().min(0).max(100)),
+  // Map pins: [latitude, longitude]. "home" is the contact location.
+  places: z.record(id, z.tuple([Latitude, Longitude])),
 });
 
 // Everything that is the same in every language: data/contact.yaml.
@@ -79,4 +108,6 @@ export const Contact = z.strictObject({
 
 export type Edition = z.infer<typeof Edition>;
 export type Contact = z.infer<typeof Contact>;
+export type Site = z.infer<typeof Site>;
 export type Project = z.infer<typeof Project>;
+export type Metric = z.infer<typeof Metric>;

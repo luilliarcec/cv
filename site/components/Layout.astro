@@ -1,0 +1,61 @@
+---
+import "@fontsource/anton";
+import "@fontsource/barlow/400.css";
+import "@fontsource/barlow/600.css";
+import "@fontsource/barlow-condensed/500.css";
+import "@fontsource/barlow-condensed/600.css";
+import "@fontsource/barlow-condensed/700.css";
+import "@fontsource/yellowtail";
+import "../styles/site.css";
+import { getImage } from "astro:assets";
+import avatar from "../assets/avatar.jpg";
+import type { View } from "../lib/view.ts";
+
+interface Props {
+  v: View;
+}
+const { v } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const title = `${v.name} — ${v.headline.join(" · ")}`;
+const card = await getImage({ src: avatar, width: 630, format: "jpg" });
+const image = new URL(card.src, Astro.site).href;
+const fallback = v.alternates.find((a) => a.path === "") ?? v.alternates[0];
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: v.name,
+  jobTitle: v.headline[0],
+  url: v.url,
+  email: `mailto:${v.email}`,
+  telephone: v.tel,
+  image,
+  homeLocation: { "@type": "Place", name: v.location },
+  sameAs: v.links.map((l) => l.url),
+};
+---
+
+<!doctype html>
+<html lang={v.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={v.description} />
+    <meta name="theme-color" content="#0d0618" />
+    <link rel="canonical" href={v.url} />
+    {v.alternates.map((a) => <link rel="alternate" hreflang={a.lang} href={a.url} />)}
+    {fallback && <link rel="alternate" hreflang="x-default" href={fallback.url} />}
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={v.description} />
+    <meta property="og:url" content={v.url} />
+    <meta property="og:image" content={image} />
+    <meta property="og:locale" content={v.lang === "es" ? "es_EC" : "en_US"} />
+    <meta name="twitter:card" content="summary" />
+    <script type="application/ld+json" set:html={JSON.stringify(person).replace(/</g, "\\u003c")} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
