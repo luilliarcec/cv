@@ -1,0 +1,23 @@
+{
+  "name": "cv",
+  "private": true,
+  "type": "module",
+  "description": "Luis Arce's CV: one set of data files that generates the LaTeX/PDF CV and the website.",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "tex": "node scripts/build-tex.ts",
+    "pdf": "npm run tex && cd build && for f in cv-*.tex; do latexmk -pdf -interaction=nonstopmode -halt-on-error \"$f\" || exit 1; done",
+    "test": "node --test test/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "yaml": "^2.9.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "typescript": "^7.0.2"
+  }
+}

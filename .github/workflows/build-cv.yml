@@ -1,6 +1,6 @@
 name: Build CV
 
-# Compiles every cv-*.tex at the repository root.
+# Generates build/cv-<lang>.tex from data/ and compiles every one of them to PDF.
 # Pull requests to main: build only, PDFs available as a workflow artifact.
 # Push to main (a merged PR) or a manual run on main: build and publish a GitHub Release.
 
@@ -8,12 +8,26 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - "**.tex"
+      - "data/**"
+      - "src/**"
+      - "scripts/**"
+      - "templates/**"
+      - "test/**"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.json"
       - ".github/workflows/build-cv.yml"
   push:
     branches: [main]
     paths:
-      - "**.tex"
+      - "data/**"
+      - "src/**"
+      - "scripts/**"
+      - "templates/**"
+      - "test/**"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.json"
       - ".github/workflows/build-cv.yml"
   workflow_dispatch:
 
@@ -30,6 +44,22 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Test and type-check
+        run: |
+          npm test
+          npm run typecheck
+
+      - name: Generate LaTeX from data
+        run: npm run tex
+
       - name: Install TeX Live
         run: |
           sudo apt-get update
@@ -44,19 +74,20 @@ jobs:
             texlive-latex-recommended
 
       - name: Compile PDFs
+        working-directory: build
         run: |
           shopt -s nullglob
           files=(cv-*.tex)
           if [ ${#files[@]} -eq 0 ]; then
-            echo "::error::No cv-*.tex files found at the repository root"
+            echo "::error::npm run tex produced no build/cv-*.tex files"
             exit 1
           fi
           for f in "${files[@]}"; do
             echo "::group::$f"
-            latexmk -pdf -interaction=nonstopmode -halt-on-error -output-directory=build "$f"
+            latexmk -pdf -interaction=nonstopmode -halt-on-error "$f"
             echo "::endgroup::"
           done
-          ls -l build/*.pdf
+          ls -l ./*.pdf
 
       - uses: actions/upload-artifact@v7
         with:
